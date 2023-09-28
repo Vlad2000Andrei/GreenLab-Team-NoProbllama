@@ -1,11 +1,13 @@
 MODEL_FOLDER=$1
-LANGUAGE=$2
-PROMPT=$3
+TEMPERATURE=$2
+LANGUAGE=$3
+PROMPT=$4
 SCRIPT_NAME="instruction-runner.py"
 
 SCRIPT_PATH=$MODEL_FOLDER/$SCRIPT_NAME
 PROMPT_TAG="<PROMPT>"
 LANGUAGE_TAG="<LANG>"
+TEMPERATURE_TAG="<TEMP>"
 TMPOUT_FILE="./tmpout.txt"
 
 # make a file for tmp output
@@ -17,6 +19,7 @@ cp ./$SCRIPT_NAME $SCRIPT_PATH
 # Fill prompt into script (this is cursed but also kinda the only automate-able way)
 sed -i "s/$PROMPT_TAG/$PROMPT/gi" $SCRIPT_PATH
 sed -i "s/$LANGUAGE_TAG/$LANGUAGE/gi" $SCRIPT_PATH
+sed -i "s/$TEMPERATURE_TAG/$TEMPERATURE/gi" $SCRIPT_PATH
 
 # run the model with the script
 torchrun --nproc_per_node 1 $SCRIPT_PATH \

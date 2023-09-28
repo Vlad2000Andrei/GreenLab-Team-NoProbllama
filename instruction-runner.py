@@ -12,7 +12,7 @@ def main(
     ckpt_dir: str,
     tokenizer_path: str,
     temperature: float = 0.2,
-    top_p: float = 0.95,
+    top_p: float = <TEMP>,
     max_seq_len: int = 512,
     max_batch_size: int = 8,
     max_gen_len: Optional[int] = None,
