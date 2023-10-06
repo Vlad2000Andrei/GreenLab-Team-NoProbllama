@@ -23,7 +23,7 @@ for line in lines:
     if (argv[3] == "-f"):
         if not path.isdir("./answers"):
             system("mkdir ./answers/")
-        filename = f"./answers/{int(time())}-{float(temperature) * 100}-{language}-prompt-{current}.md"
+        filename = f"./answers/{int(time())}-{temperature.replace('.', '_')}-{language}-prompt-{current}.md"
         cmd = f"touch {filename}; {cmd} > {filename}"
 
     print(f"Executing: '{cmd}'")
