@@ -16,14 +16,14 @@ total = len(lines)
 current = 1
 
 for line in lines:
-    [language, prompt] = line.split(maxsplit=1)
+    [language, temperature, prompt] = line.split(maxsplit=2)
     print(f"########### Generating Answer {current}/{total}.")
-    cmd = f"./run-instruction.sh {modeldir} {language.strip()} \"{prompt.strip()}\""
+    cmd = f"./run-instruction.sh {modeldir} {temperature} {language.strip()} \"{prompt.strip()}\""
 
     if (argv[3] == "-f"):
         if not path.isdir("./answers"):
             system("mkdir ./answers/")
-        filename = f"./answers/{int(time())}-{language}-prompt-{current}.md"
+        filename = f"./answers/{int(time())}-{temperature.replace('.', '_')}-{language}-prompt-{current}.md"
         cmd = f"touch {filename}; {cmd} > {filename}"
 
     print(f"Executing: '{cmd}'")
