@@ -1,3 +1,47 @@
+# Energy Efficient Code Generation with Code Llama
+
+This repository contains the code used to generate the results for the paper "Energy Efficient Code Generation with Code Llama" by the GreenLab team NoProbllama.
+
+- [Energy Efficient Code Generation with Code Llama](#energy-efficient-code-generation-with-code-llama)
+  - [Setup](#setup)
+    - [Install Dependencies](#install-dependencies)
+  - [Running the Sampling Server](#running-the-sampling-server)
+- [Running one instruction](#running-one-instruction)
+- [Bulk-Running Instructions](#bulk-running-instructions)
+
+
+## Setup
+
+### Install Dependencies
+
+Ensure you have [poetry](https://python-poetry.org/docs/) installed. If you do not, you can install it with:
+```
+curl -sSL https://install.python-poetry.org | python3 -
+```
+
+Be sure to follow the instructions in the link above to add poetry to your path and optionally enable auto-completion.
+
+Then, install the dependencies with:
+```
+poetry install
+```
+
+If you're new to poetry, the [documentation](https://python-poetry.org/docs/basic-usage/) is a great place to start. The virtual environment must be activated before running any scripts. This can be done with:
+```
+poetry shell
+```
+
+## Running the Sampling Server
+
+The sampling server is a web server written in Flask for receiving requests to start and stop the experiment sampling. It is located in the `server/` directory. To run the server, execute:
+```
+make run
+```
+
+This starts a dev server, which is sufficient for our needs. The server will be running on `localhost:8080` by default.
+
+-------------
+
 # Running one instruction
 
 Requesting a single piece of code can be done using the `run-instruction.sh` wrapper script. Usage is as follows:
