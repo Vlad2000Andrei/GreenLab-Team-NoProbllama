@@ -1,3 +1,4 @@
 codellama-*
 answers/*
 models/
+__pycache__

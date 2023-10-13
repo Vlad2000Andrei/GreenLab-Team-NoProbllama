@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "greenlab-team-noprobllama"
+version = "0.1.0"
+description = "Codebase for testing the energy efficiency of LLama-generated code"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+monsoon = "^0.1.88"
+flask = "^3.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

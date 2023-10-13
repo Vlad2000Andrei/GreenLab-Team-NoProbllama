@@ -15,7 +15,7 @@ def main(
     top_p: float = <TEMP>,
     max_seq_len: int = 2048,
     max_batch_size: int = 8,
-    max_gen_len: Optional[int] = None,
+    max_gen_len: Optional[int] = None
 ):
     generator = Llama.build(
         ckpt_dir=ckpt_dir,
