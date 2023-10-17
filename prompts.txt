@@ -1,0 +1,18 @@
+Python 0.6 Take as arguments an array of integers arr and an integer k. Find two elements of arr, x and y, so that (x + y) == k. Print the indices of x and y in arr.
+Python 0.8 Take as arguments an array of integers arr and an integer k. Find two elements of arr, x and y, so that (x + y) == k. Print the indices of x and y in arr.
+Python 1 Take as arguments an array of integers arr and an integer k. Find two elements of arr, x and y, so that (x + y) == k. Print the indices of x and y in arr.
+C++ 0.6 Take as arguments an array of integers arr and an integer k. Find two elements of arr, x and y, so that (x + y) == k. Print the indices of x and y in arr.
+C++ 0.8 Take as arguments an array of integers arr and an integer k. Find two elements of arr, x and y, so that (x + y) == k. Print the indices of x and y in arr.
+C++ 1 Take as arguments an array of integers arr and an integer k. Find two elements of arr, x and y, so that (x + y) == k. Print the indices of x and y in arr.
+JavaScript 0.6 Take as arguments an array of integers arr and an integer k. Find two elements of arr, x and y, so that (x + y) == k. Print the indices of x and y in arr.
+JavaScript 0.8 Take as arguments an array of integers arr and an integer k. Find two elements of arr, x and y, so that (x + y) == k. Print the indices of x and y in arr.
+JavaScript 1 Take as arguments an array of integers arr and an integer k. Find two elements of arr, x and y, so that (x + y) == k. Print the indices of x and y in arr.
+Python 0.6 Take as arguments an array of integers arr and an integer k. Find two elements of arr, x and y, so that (x + y) == k. Print the indices of x and y in arr. Generate code that is as energy-efficient as possible.
+Python 0.8 Take as arguments an array of integers arr and an integer k. Find two elements of arr, x and y, so that (x + y) == k. Print the indices of x and y in arr. Generate code that is as energy-efficient as possible.
+Python 1 Take as arguments an array of integers arr and an integer k. Find two elements of arr, x and y, so that (x + y) == k. Print the indices of x and y in arr. Generate code that is as energy-efficient as possible.
+C++ 0.6 Take as arguments an array of integers arr and an integer k. Find two elements of arr, x and y, so that (x + y) == k. Print the indices of x and y in arr. Generate code that is as energy-efficient as possible.
+C++ 0.8 Take as arguments an array of integers arr and an integer k. Find two elements of arr, x and y, so that (x + y) == k. Print the indices of x and y in arr. Generate code that is as energy-efficient as possible.
+C++ 1 Take as arguments an array of integers arr and an integer k. Find two elements of arr, x and y, so that (x + y) == k. Print the indices of x and y in arr. Generate code that is as energy-efficient as possible.
+JavaScript 0.6 Take as arguments an array of integers arr and an integer k. Find two elements of arr, x and y, so that (x + y) == k. Print the indices of x and y in arr. Generate code that is as energy-efficient as possible.
+JavaScript 0.8 Take as arguments an array of integers arr and an integer k. Find two elements of arr, x and y, so that (x + y) == k. Print the indices of x and y in arr. Generate code that is as energy-efficient as possible.
+JavaScript 1 Take as arguments an array of integers arr and an integer k. Find two elements of arr, x and y, so that (x + y) == k. Print the indices of x and y in arr. Generate code that is as energy-efficient as possible.

@@ -25,8 +25,8 @@ sed -i "s/$TEMPERATURE_TAG/$TEMPERATURE/gi" $SCRIPT_PATH
 
 # run the model with the script
 torchrun --nproc_per_node 1 $SCRIPT_PATH \
-    --ckpt_dir $MODEL_FOLDER/CodeLlama-13b-Instruct-Resharded/ \
-    --tokenizer_path $MODEL_FOLDER/CodeLlama-13b-Instruct-Resharded/tokenizer.model \
+    --ckpt_dir $MODEL_FOLDER/CodeLlama-7b-Instruct/ \
+    --tokenizer_path $MODEL_FOLDER/CodeLlama-7b-Instruct/tokenizer.model \
     --max_seq_len 512 --max_batch_size 4 > $TMPOUT_FILE
 
 # Get the assistant's answer from the mess of output
