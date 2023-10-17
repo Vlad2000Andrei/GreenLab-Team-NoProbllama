@@ -2,10 +2,14 @@ import random
 from sys import argv
 
 nums = set()
-TARGET = 500_000_000
-K = 123_456
-X = 123_000
+TARGET = 500_000_000 # How many numbers to generate
+
+K = 123_456 # Number to sum to
+# X + Y must add up to K
+X = 123_000 
 Y = 456
+
+
 output = []
 progress = 0
 
