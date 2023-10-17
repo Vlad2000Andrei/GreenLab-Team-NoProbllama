@@ -28,4 +28,6 @@ for line in lines:
 
     print(f"Executing: '{cmd}'")
     system(cmd)
+    with open(filename, "a") as f:
+        f.write(f"> Prompt: {prompt}")
     current += 1
