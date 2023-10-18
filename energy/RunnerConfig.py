@@ -14,6 +14,7 @@ import os
 import requests
 import subprocess
 
+SERVER_HOST = 'joeldorado.local'
 CMD = os.environ.get('CMD', 'none') # e.g. python ./llama/two_sum/basic/<temp>-<language>-<prompt>.py
 ITERATION = os.environ.get('ITER', 'none') # e.g. 1
 if CMD == 'none':
@@ -103,7 +104,7 @@ class RunnerConfig:
         """Perform any activity required for starting measurements."""
         output.console_log("Starting measurement on the dev computer...")
         csv_filename = get_name()
-        res = requests.post(f'http://localhost:8080/start/{csv_filename}', json={}, headers={'Content-Type': 'application/json'})
+        res = requests.post(f'http://{SERVER_HOST}:8080/start/{csv_filename}', json={}, headers={'Content-Type': 'application/json'})
         output.console_log(res.text)
 
         output.console_log("Config.start_measurement() called!")
@@ -122,7 +123,7 @@ class RunnerConfig:
     def stop_measurement(self, context: RunnerContext) -> None:
         """Perform any activity here required for stopping measurements."""
         output.console_log("Stopping measurement on the dev computer...")
-        res = requests.post('http://localhost:8080/stop', json={}, headers={'Content-Type': 'application/json'})
+        res = requests.post('http://{SERVER_HOST}:8080/stop', json={}, headers={'Content-Type': 'application/json'})
         output.console_log(res.text)
 
         output.console_log("Config.stop_measurement called!")
