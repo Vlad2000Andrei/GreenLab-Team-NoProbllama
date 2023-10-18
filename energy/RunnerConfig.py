@@ -10,6 +10,15 @@ from ProgressManager.Output.OutputProcedure import OutputProcedure as output
 from typing import Dict, List, Any, Optional
 from pathlib import Path
 from os.path import dirname, realpath
+import os
+import requests
+import subprocess
+
+LANGUAGE = os.environ.get('LANGUAGE', 'python') # cpp, node, python
+ALGO = os.environ.get('ALGO', 'none') # e.g. ./llama/two_sum/basic/<temp>-<language>-<prompt>.py
+ARGS = os.environ.get('ARGS', '') # e.g. 1 2 3 4 5
+if ALGO == 'none':
+    os._exit(1)
 
 
 class RunnerConfig:
@@ -17,7 +26,7 @@ class RunnerConfig:
 
     # ================================ USER SPECIFIC CONFIG ================================
     """The name of the experiment."""
-    name:                       str             = "new_runner_experiment"
+    name:                       str             = f"{ALGO}"
 
     """The path in which Experiment Runner will create a folder with the name `self.name`, in order to store the
     results from this experiment. (Path does not need to exist - it will be created if necessary.)
@@ -87,15 +96,33 @@ class RunnerConfig:
 
     def start_measurement(self, context: RunnerContext) -> None:
         """Perform any activity required for starting measurements."""
+        output.console_log("Starting measurement on the dev computer...")
+        csv_filename = ALGO.split('/')[-1].split('.')[0]
+        res = requests.post(f'http://localhost:8080/start/{csv_filename}', json={}, headers={'Content-Type': 'application/json'})
+        output.console_log(res.text)
+
         output.console_log("Config.start_measurement() called!")
 
     def interact(self, context: RunnerContext) -> None:
         """Perform any interaction with the running target system here, or block here until the target finishes."""
+        proc = None
+        if ARGS != '':
+            args = ARGS.split(' ')
+            proc = subprocess.Popen([f'{LANGUAGE}', f'{ALGO}'] + args)
+        else:
+            proc = subprocess.Popen([f'{LANGUAGE}', f'{ALGO}'])
+
+        exit_code = proc.wait()
+
+        output.console_log(f'Program finished. Exited with code: {exit_code}')
 
         output.console_log("Config.interact() called!")
 
     def stop_measurement(self, context: RunnerContext) -> None:
         """Perform any activity here required for stopping measurements."""
+        output.console_log("Stopping measurement on the dev computer...")
+        res = requests.post('http://localhost:8080/stop', json={}, headers={'Content-Type': 'application/json'})
+        output.console_log(res.text)
 
         output.console_log("Config.stop_measurement called!")
 
