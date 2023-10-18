@@ -9,3 +9,13 @@ function findIndices(arr, k) {
   }
   return [-1, -1];
 }
+
+// Open a file named bignumbers.txt and read the numbers in it. find the indicies of k in the array.
+(() => {
+  const fs = require('fs');
+  const data = fs.readFileSync('../../../bignumbers.txt', 'utf8');
+  const numbers = data.split('\n').map(Number);
+  const k = 123456;
+  const indices = findIndices(numbers, k);
+  console.log(indices);
+})();

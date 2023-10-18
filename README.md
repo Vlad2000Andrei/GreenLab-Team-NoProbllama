@@ -6,6 +6,7 @@ This repository contains the code used to generate the results for the paper "En
   - [Setup](#setup)
     - [Install Dependencies](#install-dependencies)
   - [Running the Sampling Server](#running-the-sampling-server)
+  - [Running the tests on a RPi](#running-the-tests-on-a-rpi)
 - [Running one instruction](#running-one-instruction)
 - [Bulk-Running Instructions](#bulk-running-instructions)
 
@@ -39,6 +40,21 @@ make run
 ```
 
 This starts a dev server, which is sufficient for our needs. The server will be running on `localhost:8080` by default.
+
+The server has two endpoints:
+
+- `/start/<filename>` - Starts the experiment sampling and creates a csv file with the specified filename.
+- `/stop` - Stops the experiment sampling. This will stop the experiment and save the results to the CSV.
+
+
+## Running the tests on a RPi
+
+With the RPi setup and a terminal connected via SSH, the following commands can be used to run the tests.
+
+```
+python ./energy/utils/c_compile.py
+./run-experiments.sh
+```
 
 -------------
 

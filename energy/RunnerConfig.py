@@ -14,11 +14,16 @@ import os
 import requests
 import subprocess
 
-LANGUAGE = os.environ.get('LANGUAGE', 'python') # cpp, node, python
-ALGO = os.environ.get('ALGO', 'none') # e.g. ./llama/two_sum/basic/<temp>-<language>-<prompt>.py
-ARGS = os.environ.get('ARGS', '') # e.g. 1 2 3 4 5
-if ALGO == 'none':
+CMD = os.environ.get('CMD', 'none') # e.g. python ./llama/two_sum/basic/<temp>-<language>-<prompt>.py
+ITERATION = os.environ.get('ITER', 'none') # e.g. 1
+if CMD == 'none':
     os._exit(1)
+
+def get_name():
+    cmd_arr = CMD.split('*')
+    for val in cmd_arr:
+        if 'Python' in val or 'JavaScript' in val or 'C++' in val:
+            return ITERATION + '_' + val
 
 
 class RunnerConfig:
@@ -26,7 +31,7 @@ class RunnerConfig:
 
     # ================================ USER SPECIFIC CONFIG ================================
     """The name of the experiment."""
-    name:                       str             = f"{ALGO}"
+    name:                       str             = f"{get_name()}"
 
     """The path in which Experiment Runner will create a folder with the name `self.name`, in order to store the
     results from this experiment. (Path does not need to exist - it will be created if necessary.)
@@ -97,7 +102,7 @@ class RunnerConfig:
     def start_measurement(self, context: RunnerContext) -> None:
         """Perform any activity required for starting measurements."""
         output.console_log("Starting measurement on the dev computer...")
-        csv_filename = ALGO.split('/')[-1].split('.')[0]
+        csv_filename = get_name()
         res = requests.post(f'http://localhost:8080/start/{csv_filename}', json={}, headers={'Content-Type': 'application/json'})
         output.console_log(res.text)
 
@@ -105,12 +110,8 @@ class RunnerConfig:
 
     def interact(self, context: RunnerContext) -> None:
         """Perform any interaction with the running target system here, or block here until the target finishes."""
-        proc = None
-        if ARGS != '':
-            args = ARGS.split(' ')
-            proc = subprocess.Popen([f'{LANGUAGE}', f'{ALGO}'] + args)
-        else:
-            proc = subprocess.Popen([f'{LANGUAGE}', f'{ALGO}'])
+        # Split the commands by * so that we can include spaces in the command args
+        proc = subprocess.Popen(CMD.split('*'), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         exit_code = proc.wait()
 

@@ -1,12 +1,18 @@
-
+#include <fstream>
 #include <iostream>
 #include <vector>
 
 using namespace std;
 
 int main() {
-    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-    int k = 10;
+    // Open a file named bignumbers.txt and read the numbers in it. find the indicies of k in the array.
+    ifstream infile("../../../bignumbers.txt");
+    vector<int> arr;
+    int num;
+    while (infile >> num) {
+        arr.push_back(num);
+    }
+    int k = 123456;
 
     for (int i = 0; i < sizeof(arr) / sizeof(arr[0]); i++) {
         for (int j = i + 1; j < sizeof(arr) / sizeof(arr[0]); j++) {

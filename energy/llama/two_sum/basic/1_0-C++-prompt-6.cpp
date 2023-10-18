@@ -1,4 +1,4 @@
-
+#include <fstream>
 #include <iostream>
 #include <vector>
 
@@ -17,8 +17,16 @@ void find_indices(vector<int>& arr, int k) {
 }
 
 int main() {
-    vector<int> arr = {1, 2, 3, 4, 5, 6};
-    find_indices(arr, 7);
+    // Open a file named bignumbers.txt and read the numbers in it. find the indicies of k in the array.
+    ifstream infile("../../../bignumbers.txt");
+    vector<int> arr;
+    int num;
+    while (infile >> num) {
+        arr.push_back(num);
+    }
+
+    int k = 123456;
+    find_indices(arr, k);
     return 0;
 }
 

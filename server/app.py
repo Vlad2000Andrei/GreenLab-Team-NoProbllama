@@ -10,7 +10,7 @@ def start(filename):
         return 'Filename not provided', 400
 
     print(f'Starting sampling for {filename}')
-    ms.start_sampling('test')
+    ms.start_sampling(filename)
     return 'OK'
 
 @app.post('/stop')
