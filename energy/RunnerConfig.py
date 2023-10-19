@@ -24,7 +24,7 @@ def get_name():
     cmd_arr = CMD.split('*')
     for val in cmd_arr:
         if 'Python' in val or 'JavaScript' in val or 'C++' in val:
-            return ITERATION + '_' + val
+            return CMD.split('/')[4] + '_' + CMD.split('/')[5] + '_' + ITERATION + '_' + val.split('/')[-1].split('.')[0]
 
 
 class RunnerConfig:
@@ -69,14 +69,10 @@ class RunnerConfig:
     def create_run_table_model(self) -> RunTableModel:
         """Create and return the run_table model here. A run_table is a List (rows) of tuples (columns),
         representing each run performed"""
-        factor1 = FactorModel("example_factor1", ['example_treatment1', 'example_treatment2', 'example_treatment3'])
-        factor2 = FactorModel("example_factor2", [True, False])
+        factor1 = FactorModel("example_factor1", [True])
         self.run_table_model = RunTableModel(
-            factors=[factor1, factor2],
-            exclude_variations=[
-                {factor1: ['example_treatment1']},                   # all runs having treatment "example_treatment1" will be excluded
-                {factor1: ['example_treatment2'], factor2: [True]},  # all runs having the combination ("example_treatment2", True) will be excluded
-            ],
+            factors=[factor1],
+            exclude_variations=[],
             data_columns=['avg_cpu', 'avg_mem']
         )
         return self.run_table_model
@@ -123,7 +119,7 @@ class RunnerConfig:
     def stop_measurement(self, context: RunnerContext) -> None:
         """Perform any activity here required for stopping measurements."""
         output.console_log("Stopping measurement on the dev computer...")
-        res = requests.post('http://{SERVER_HOST}:8080/stop', json={}, headers={'Content-Type': 'application/json'})
+        res = requests.post(f'http://{SERVER_HOST}:8080/stop', json={}, headers={'Content-Type': 'application/json'})
         output.console_log(res.text)
 
         output.console_log("Config.stop_measurement called!")
