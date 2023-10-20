@@ -82,6 +82,7 @@ do
     # run the experiment 30 times
     count=30
     for i in $(seq $count); do
+        export ITER=$i
         python experiment-runner/ experiment-runner/energy/RunnerConfig.py
         # remove output files
         rm -r experiment-runner/energy/llama/**/*.txt
