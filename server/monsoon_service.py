@@ -4,17 +4,17 @@ import Monsoon.HVPM as HVPM
 import Monsoon.sampleEngine as sampleEngine
 import Monsoon.Operations as op
 
-V_OUT = 4.7
 
 class MonsoonService:
     engine = None
     is_running = False
+    V_OUT = 5.0
 
     def setup_monsoon(self, calibrationTime=1250, granularity=1, console=False):
         Mon = HVPM.Monsoon()
         Mon.setup_usb()
-        Mon.setVout(V_OUT)
-        Mon.setMaximumCurrent(3.5)
+        Mon.setVout(self.V_OUT)
+        # Mon.setMaximumCurrent(3.5)
         self.calibrationTime = calibrationTime
         self.granularity = granularity
         self.engine = sampleEngine.SampleEngine(Mon)
@@ -30,8 +30,7 @@ class MonsoonService:
         self.engine.startSampling(
             calTime=self.calibrationTime, 
             granularity=self.granularity,
-            samples=samples,
-            filename=filename)
+            samples=samples)
 
     def stop_sampling(self):
         self.engine.disableCSVOutput() # Closes and writes the CSV file

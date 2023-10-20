@@ -107,8 +107,11 @@ class RunnerConfig:
 
     def interact(self, context: RunnerContext) -> None:
         """Perform any interaction with the running target system here, or block here until the target finishes."""
+        output.console_log("Spinning up subprocess...")
         # Split the commands by * so that we can include spaces in the command args
-        proc = subprocess.Popen(CMD.split('*'), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        proc = subprocess.Popen(CMD.split('*'), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        for line in proc.stdout:
+            output.console_log(line.decode('utf-8').rstrip())
 
         exit_code = proc.wait()
 

@@ -8,7 +8,7 @@ def find_indices(arr, k):
 
 # Open a file named bignumbers.txt and read the numbers in it. find the indicies of k in the array.
 if __name__ == '__main__':
-    with open('../../../bignumbers.txt', 'r') as f:
+    with open('./experiment-runner/energy/bignumbers.txt', 'r') as f:
         arr = [int(x) for x in f.read().split()]
     k = 123456
     print(find_indices(arr, k))

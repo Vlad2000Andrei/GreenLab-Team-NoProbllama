@@ -18,7 +18,7 @@ void find_indices(vector<int> arr, int k) {
 
 int main() {
     // Open a file named bignumbers.txt and read the numbers in it. find the indicies of k in the array.
-    ifstream infile("../../../bignumbers.txt");
+    ifstream infile("./experiment-runner/energy/bignumbers.txt");
     vector<int> arr;
     int num;
     while (infile >> num) {
