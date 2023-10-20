@@ -10,5 +10,5 @@ def find_indices(arr, k):
 if __name__ == '__main__':
     with open('./experiment-runner/energy/bignumbers.txt', 'r') as f:
         arr = [int(x) for x in f.read().split()]
-    k = 123456
+    k = 1234
     print(find_indices(arr, k))

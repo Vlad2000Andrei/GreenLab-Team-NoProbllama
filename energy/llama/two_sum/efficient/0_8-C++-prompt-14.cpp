@@ -12,7 +12,7 @@ int main() {
     while (infile >> num) {
         arr.push_back(num);
     }
-    int k = 123456;
+    int k = 1234;
 
     // Find the indices of x and y
     int x_index = -1, y_index = -1;

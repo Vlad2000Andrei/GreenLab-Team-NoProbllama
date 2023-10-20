@@ -14,7 +14,7 @@ function findIndices(arr, k) {
   const fs = require('fs');
   const data = fs.readFileSync('./experiment-runner/energy/bignumbers.txt', 'utf8');
   const numbers = data.split('\n').map(Number);
-  const k = 123456;
+  const k = 1234;
   const indices = findIndices(numbers, k);
   console.log(indices);
 })();

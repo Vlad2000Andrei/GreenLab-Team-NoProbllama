@@ -25,7 +25,7 @@ int main() {
         arr.push_back(num);
     }
 
-    int k = 123456;
+    int k = 1234;
     find_indices(arr, k);
     return 0;
 }
