@@ -1,5 +1,7 @@
+const fs = require('fs');
+const data = fs.readFileSync('./experiment-runner/energy/smallnumbers.txt', 'utf8');
 
-const arr = readLine().split(' ').map(x => parseInt(x));
+const arr = data.split(' ').map(x => parseInt(x));
 
 // Find the smallest absolute difference between any two elements of arr
 let smallestDiff = Infinity;

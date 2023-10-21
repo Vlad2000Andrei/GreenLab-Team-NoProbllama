@@ -1,5 +1,7 @@
+const fs = require('fs');
+const data = fs.readFileSync('./experiment-runner/energy/smallnumbers.txt', 'utf8');
 
-const arr = readLine().split(' ').map(x => parseInt(x));
+const arr = data.split(' ').map(x => parseInt(x));
 
 const smallestDifference = Math.min(...arr.map(x => Math.abs(arr.find(y => y !== x) - x)));
 
