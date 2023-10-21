@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <vector>
 #include <iostream>
+#include <fstream>
 #include <algorithm>
 using namespace std;
 
@@ -12,13 +13,16 @@ int cmp(int x,int y)
 int main() {
    vector<int> arr,temp;
    int i,n,diff,x;
-    
-    cin>>n;
-    
-    for(i=0;i<n;i++)
-    {
-        cin>>x;
-        arr.push_back(x);
+
+   ifstream infile("./experiment-runner/energy/smallnumbers.txt");
+    vector<int> arr;
+    int num;
+    n = 0;
+    x = 0;
+    while (infile >> num) {
+        arr.push_back(num);
+        n++;
+        x++;
     }
     
     sort(arr.begin(),arr.end(),cmp);

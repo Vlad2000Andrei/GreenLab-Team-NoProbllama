@@ -1,5 +1,6 @@
 def main():
-    N = int(input())
+    with open('./experiment-runner/energy/smallnumbers.txt', 'r') as f:
+        N = [int(x) for x in f.read().split()]
     ar = sorted(list(map(int, str(input()).split())))
     prs = ''
     mini = pow(10, 7) + 1

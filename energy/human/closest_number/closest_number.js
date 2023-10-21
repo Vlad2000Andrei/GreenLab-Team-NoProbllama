@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 function processData(input) {
   var lines = input.split('\n');
   var n = parseInt(lines.shift(), 10);
@@ -36,13 +38,6 @@ function processData(input) {
   });
 }
 
-process.stdin.resume();
-process.stdin.setEncoding("ascii");
-_input = "";
-process.stdin.on("data", function (input) {
-  _input += input;
-});
+const data = fs.readFileSync('./experiment-runner/energy/smallnumbers.txt', 'utf8');
 
-process.stdin.on("end", function () {
- processData(_input);
-});
+processData(data);
