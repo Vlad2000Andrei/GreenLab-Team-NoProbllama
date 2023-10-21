@@ -1,5 +1,6 @@
 
-arr = list(map(int, input().split()))
+with open('./experiment-runner/energy/smallnumbers.txt', 'r') as f:
+    arr = [int(x) for x in f.read().split()]
 
 # Find the smallest absolute difference between any two elements of arr
 smallest_diff = float('inf')

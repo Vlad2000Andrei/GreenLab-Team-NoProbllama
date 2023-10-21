@@ -1,17 +1,20 @@
 #include <climits>
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <algorithm>
 
 using namespace std;
 
 int main() {
-    int n; // number of elements in the array
-    cin >> n;
-
-    vector<int> arr(n);
-    for (int i = 0; i < n; i++) {
-        cin >> arr[i];
+    // Open a file named bignumbers.txt and read the numbers in it. find the indicies of k in the array.
+    ifstream infile("./experiment-runner/energy/smallnumbers.txt");
+    vector<int> arr;
+    int num;
+    int n = 0;
+    while (infile >> num) {
+        arr.push_back(num);
+        n++;
     }
 
     // find the smallest absolute difference between any two elements of arr
