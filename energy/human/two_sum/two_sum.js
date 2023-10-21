@@ -19,9 +19,9 @@ const twoSum = (nums, target) =>{
 // Open a file named bignumbers.txt and read the numbers in it. find the indicies of k in the array.
 (() => {
   const fs = require('fs');
-  const data = fs.readFileSync('../../../bignumbers.txt', 'utf8');
+  const data = fs.readFileSync('./experiment-runner/energy/bignumbers.txt', 'utf8');
   const numbers = data.split('\n').map(Number);
-  const k = 123456;
+  const k = 1234;
   const indices = twoSum(numbers, k);
   console.log(indices);
 })();

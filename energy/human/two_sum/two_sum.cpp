@@ -24,14 +24,14 @@ vector<int> twoSum(vector<int>& nums, int target) {
 
 int main() {
     // Open a file named bignumbers.txt and read the numbers in it. find the indicies of k in the array.
-    ifstream infile("../../../bignumbers.txt");
+    ifstream infile("./experiment-runner/energy/bignumbers.txt");
     vector<int> arr;
     int num;
     while (infile >> num) {
         arr.push_back(num);
     }
 
-    int k = 123456;
+    int k = 1234;
     twoSum(arr, k);
     return 0;
 }
