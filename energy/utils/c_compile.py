@@ -8,6 +8,9 @@ if __name__ == '__main__':
             for file in filenames:
                 filepath = os.path.join(root, file)
                 filename = file.split('.')[0]
-                if filepath.endswith('.cpp'):
-                    proc = subprocess.Popen(f'g++ -std=x++20 {filepath} -o {filename}', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                if '.cpp' in filepath:
+                    print(filepath)
+                    proc = subprocess.Popen(['g++', '-std=c++20', filepath, '-o', filepath[:-4]], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                    for line in proc.stdout:
+                        print(line.decode('utf-8').rstrip())
                     proc.wait()
