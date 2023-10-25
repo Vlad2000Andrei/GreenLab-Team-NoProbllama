@@ -12,7 +12,7 @@ load_data <- function(path_all_joules, output_dir, path_separator="/") {
       run_data = as.numeric(as.vector(run_data[1,])[-1]) #the other script writes it all weird so we need to transpose it weirdly
       
       # Now find out all the things about it
-      algo = benchmark_name
+      algo = paste(strsplit(file, '_')[[1]][1:2], collapse = " ")
       lang = tail(strsplit(file, "_")[[1]],2)[1]
       
       if (grepl("efficient", file, ignore.case = TRUE)) {
