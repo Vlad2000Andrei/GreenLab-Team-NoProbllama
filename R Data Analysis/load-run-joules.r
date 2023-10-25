@@ -49,7 +49,7 @@ load_data <- function(path_all_joules, output_dir, path_separator="/") {
         source = "llama"
       }
       
-      new_row = data.frame(src=source, algo=algo, lang=lang, efficient=efficient, temp=temp)
+      new_row = data.frame(src=source, algo=algo, lang=lang, eff=efficient, temp=temp)
       new_row$data = list(run_data)
       data = rbind(data, new_row)
       
@@ -58,12 +58,48 @@ load_data <- function(path_all_joules, output_dir, path_separator="/") {
   return(data)
 }
 
-get_bench_data <- function(data = load_data(), src="llama", alg, lang, temp, eff) {
-  return(1) 
+# Arguments:
+# - data: the dataframe returned by load_data()
+# - source (optional): "human" or "llama"
+# - algorithm (optional): "closest numbers", "string replacement" or "two sum"
+# - language (optional): "Python", "JavaScript" or "C++"
+# - temperature (otitonal): "0.6", "0.8" or "1.0"   YES, as a string, not a number
+# - efficient (optional): "TRUE" or "FALSE"   yes, againm as a string
+# - only_data (optional, default = FALSE) whether to return just the data column or all the other columns as well.
+#
+# Returns:
+#   A subset of the original data with only the rows that match the filter provided. If only_data==TRUE, then it only returns a vector 
+#   of data lists, corresponding to the rows that match the filters.
+
+get_bench_data <- function(data, source=NULL, algorithm=NULL, language=NULL, temperature=NULL, efficient=NULL, only_data = FALSE) {
+  result = data
+  
+  if (!is.null(source)) {
+    result = subset(result, src == source)
+  }
+  if (!is.null(algorithm)) {
+    result = subset(result, algo == algorithm)
+  }
+  if (!is.null(language)) {
+    result = subset(result, lang == language)
+  }
+  if (!is.null(temperature)) {
+    result = subset(result, temp == temperature)
+  }
+  if (!is.null(efficient)) {
+    result = subset(result, eff == efficient)
+  }
+  
+  if (only_data) {
+    result = as.vector(result$data)
+  }
+  
+  return(result)
 }
 
-path_all_joules = 'C:/Users/cursa/OneDrive/Documente/Uni/Green Lab/GreenLab-Team-NoProbllama/R Data Analysis/Data Files/Run Joules'
-output_dir      = 'C:/Users/cursa/OneDrive/Documente/Uni/Green Lab/GreenLab-Team-NoProbllama/R Data Analysis'
+path_all_joules = 'C:/Users/cursa/Documents/University/MSc CS/Green Lab/Code Llama/GreenLab-Team-NoProbllama/R Data Analysis/Data Files/Run Joules'
+output_dir      = 'C:/Users/cursa/Documents/University/MSc CS/Green Lab/Code Llama/GreenLab-Team-NoProbllama/R Data Analysis/Data Files/Run Joules'
 path_separator  = "/"
 
 data = load_data(path_all_joules, output_dir, path_separator)
+
