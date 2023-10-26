@@ -55,17 +55,23 @@ cn <- group_and_reshape("CN")
 sr <- group_and_reshape("SR")
 ts <- group_and_reshape("TS")
 
-#ggplot(cn, aes(x = mean.x, y = mean.y)) +
-  #geom_point(color = "blue", size = 3) +
-  #labs(
-   # title = "Scatter Plot Example",
-    #x = "X-axis Label",
-    #y = "Y-axis Label"
-  #) +
-  #theme_minimal()
+plot_rq2 <- function(alg) {
+  ggplot(alg, aes(fill = language, x = mean.x, y = mean.y, color = language)) +
+    geom_point(size = 3) +
+    labs(
+      x = "Normal Prompt Energy Consumption (mJ)",
+      y = "Efficient Prompt Energy Consumption (mJ)",
+      title = "Llama Default Prompt vs Llama Energy Efficient Prompt"
+    ) +
+    scale_color_manual(values = c("C++" = "red", "JavaScript" = "blue", "Python" = "green")) +
+    theme_minimal() +
+    theme(plot.title = element_text(hjust = 0.5))
+}
+
+plot_rq2(ts)
 
 ################### RQ3 ####################
-plot_rq2 <- function(df, alg) {
+plot_rq3 <- function(df, alg) {
   df$temperature <- factor(df$temperature)
   
   ggplot(df, aes(fill = temperature, y = mean.x, x = language)) +
@@ -76,5 +82,5 @@ plot_rq2 <- function(df, alg) {
     theme(plot.title = element_text(hjust = 0.5))
 }
 
-plot_rq2(ts, "TS")
+#plot_rq3(ts, "TS")
 
