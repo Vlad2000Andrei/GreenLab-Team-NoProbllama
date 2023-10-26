@@ -1,41 +1,80 @@
 # Define path names
 folder_path <- "/Users/damlaural/Documents/vrijeuniversiteit/MASTER/Year 2/period 1/green lab/r-studio/energy-data/"
+library(dplyr)
+library(ggplot2)
+library(patchwork)
 
-cn_path <- paste(folder_path,"cn_mili_joules.csv",sep = '')
-sr_path <- paste(folder_path,"sr_mili_joules.csv",sep = '')
-ts_path <- paste(folder_path,"ts_mili_joules.csv",sep = '')
-human_path <- paste(folder_path,"human_mili_joules.csv",sep = '')
+llama_path <- paste(folder_path,"llama.csv",sep = '')
+human_path <- paste(folder_path,"human.csv",sep = '')
 
 # Import files
-cn <- read.csv(cn_path)
-sr <- read.csv(sr_path)
-ts <- read.csv(ts_path)
+llama <- read.csv(llama_path)
 human <- read.csv(human_path)
 
-#Merge datasets
-datasets <- list(cn, sr, ts, human)
-merged_dataset <- do.call(rbind, datasets)
 
-
-# Filter by keyword
-filterByKeyword <- function(dataset, column_name, keyword) {
-  keyword_rows <- grepl(keyword, dataset[[column_name]])
-
-  filtered_dataset <- dataset[keyword_rows, ]
-  
-  return(filtered_dataset)
+relative_change_percentage <- function(prev, new) {
+  relative_change <- ((new - prev) / prev) * 100
+  return(round(relative_change, 3))
 }
 
-# Filter by non energy efficient code
-filterByNonE <- function(dataset, column_name) {
-  keyword_rows <- !grepl("E", dataset[[column_name]])
-  
-  filtered_dataset <- dataset[keyword_rows, ]
-  
-  return(filtered_dataset)
+non_energy <- llama %>% filter(efficient == "False")
+
+group_and_calculate_mean <- function(df, group_cols, mean_col) {
+  grouped_df <- df %>% group_by(!!!syms(group_cols))
+  result <- grouped_df %>% summarize(mean_llama = mean(!!sym(mean_col)))
+  return(result)
 }
 
-non_energy <- filterByNonE(merged_dataset, "X")
+result <- group_and_calculate_mean(non_energy, c("algorithm", "language"), "mean")
 
+rq1 <- merge(human[, c("algorithm", "language", "mean")], result, by = c("algorithm", "language"))
+rq1$change <- mapply(relative_change_percentage, rq1["mean"], rq1["mean_llama"])
 
+plot_rq1 <- function(alg) {
+  pl <- ggplot(data = rq1 %>% filter(algorithm == alg), aes(x = language, y = change[, "mean", drop = TRUE], fill = language)) +
+    geom_bar(stat = "identity", width = 0.5) + labs(x = "Language", y= "Change Percentage") +
+    geom_text(aes(label = paste(round(change[, "mean"], 2), "%"), vjust = -0.5), position = position_dodge(width = 0.5)) +
+    ggtitle(paste("Difference Human vs. Llama for ", alg))+
+    theme(plot.title = element_text(hjust = 0.5))
+  return(pl)
+}
+
+plot_cn <- plot_rq1("CN")
+plot_ts <- plot_rq1("TS")
+plot_sr <- plot_rq1("SR")
+
+################### RQ2 ####################
+group_and_reshape <- function(alg) {
+  algo_df <- llama %>% filter(algorithm == alg)
+  eff <- algo_df %>% filter(efficient == "True")
+  non_eff <- algo_df %>% filter(efficient == "False")
+  merged_data <- merge(eff[, c("language", "temperature", "mean")], non_eff[, c("language", "temperature", "mean")], by = c("language", "temperature"))
+}
+
+cn <- group_and_reshape("CN")
+sr <- group_and_reshape("SR")
+ts <- group_and_reshape("TS")
+
+#ggplot(cn, aes(x = mean.x, y = mean.y)) +
+  #geom_point(color = "blue", size = 3) +
+  #labs(
+   # title = "Scatter Plot Example",
+    #x = "X-axis Label",
+    #y = "Y-axis Label"
+  #) +
+  #theme_minimal()
+
+################### RQ3 ####################
+plot_rq2 <- function(df, alg) {
+  df$temperature <- factor(df$temperature)
+  
+  ggplot(df, aes(fill = temperature, y = mean.x, x = language)) +
+    geom_bar(position = "dodge", stat = "identity") +
+    geom_text(aes(label = round(mean.x, 2), vjust = -0.5), position = position_dodge(width = 0.9)) +
+    ggtitle(paste("Temperature Differences for ", alg))+
+    labs(x = "Language", y= "Mean Energy Consumption") +
+    theme(plot.title = element_text(hjust = 0.5))
+}
+
+plot_rq2(ts, "TS")
 
