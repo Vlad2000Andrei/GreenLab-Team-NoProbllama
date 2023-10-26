@@ -55,20 +55,20 @@ cn <- group_and_reshape("CN")
 sr <- group_and_reshape("SR")
 ts <- group_and_reshape("TS")
 
-plot_rq2 <- function(alg) {
+plot_rq2 <- function(alg, name) {
   ggplot(alg, aes(fill = language, x = mean.x, y = mean.y, color = language)) +
     geom_point(size = 3) +
     labs(
       x = "Normal Prompt Energy Consumption (mJ)",
       y = "Efficient Prompt Energy Consumption (mJ)",
-      title = "Llama Default Prompt vs Llama Energy Efficient Prompt"
+      title = paste("Llama Default Prompt vs Llama Energy Efficient Prompt for ", name)
     ) +
     scale_color_manual(values = c("C++" = "red", "JavaScript" = "blue", "Python" = "green")) +
     theme_minimal() +
     theme(plot.title = element_text(hjust = 0.5))
 }
 
-plot_rq2(ts)
+plot_rq2(ts, "TS")
 
 ################### RQ3 ####################
 plot_rq3 <- function(df, alg) {
