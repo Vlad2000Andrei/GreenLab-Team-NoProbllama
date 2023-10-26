@@ -66,12 +66,13 @@ load_data <- function(path_all_joules, output_dir, path_separator="/") {
 # - temperature (otitonal): "0.6", "0.8" or "1.0"   YES, as a string, not a number
 # - efficient (optional): "TRUE" or "FALSE"   yes, againm as a string
 # - only_data (optional, default = FALSE) whether to return just the data column or all the other columns as well.
+# - calc_mean (optional, default = FALSE) whether to add the mean of the data column as a new column as well
 #
 # Returns:
 #   A subset of the original data with only the rows that match the filter provided. If only_data==TRUE, then it only returns a vector 
 #   of data lists, corresponding to the rows that match the filters.
 
-get_bench_data <- function(data, source=NULL, algorithm=NULL, language=NULL, temperature=NULL, efficient=NULL, only_data = FALSE) {
+get_bench_data <- function(data, source=NULL, algorithm=NULL, language=NULL, temperature=NULL, efficient=NULL, only_data = FALSE, calc_mean = FALSE) {
   result = data
   
   if (!is.null(source)) {
@@ -90,16 +91,18 @@ get_bench_data <- function(data, source=NULL, algorithm=NULL, language=NULL, tem
     result = subset(result, eff == efficient)
   }
   
+  if (calc_mean) {
+    mean_data <- vector(length = length(result$data))
+    for (i in 1:length(result$data)) {
+      mean_data[i] <- mean(result$data[[i]])
+    }
+    result$mean_data <- mean_data
+  }
+  
   if (only_data) {
     result = as.vector(result$data)
   }
   
   return(result)
 }
-
-path_all_joules = 'C:/Users/cursa/Documents/University/MSc CS/Green Lab/Code Llama/GreenLab-Team-NoProbllama/R Data Analysis/Data Files/Run Joules'
-output_dir      = 'C:/Users/cursa/Documents/University/MSc CS/Green Lab/Code Llama/GreenLab-Team-NoProbllama/R Data Analysis/Data Files/Run Joules'
-path_separator  = "/"
-
-data = load_data(path_all_joules, output_dir, path_separator)
 

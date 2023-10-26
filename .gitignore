@@ -4,3 +4,4 @@ models/
 __pycache__
 R Data Analysis/Data Files/*
 normality_shapiro.csv
+.Rproj.user
