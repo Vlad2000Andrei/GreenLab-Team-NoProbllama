@@ -11,8 +11,19 @@ data = load_data(path_all_joules, output_dir)
 normality = check_normality(path_all_joules, output_dir)
 
 ## RQ1 ##
-human_data = get_bench_data(data, source="human")
-llama_data = get_bench_data(data, source="llama", efficient = "FALSE")
+
+
+benchmarks = c("two sum", "string replacement", "closest numbers")
+languages = c("Python", "C++", "JavaScript")
+
+for (benchmark in benchmarks) {
+  for (language in languages) {
+    human_data = get_bench_data(data, source="human", language=language, algorithm=benchmark, only_data = TRUE)[[1]]
+    llama_data = get_bench_data(data, source="llama", language=language, algorithm=benchmark, only_data = TRUE)[[1]]
+    
+    testresult = wilcox.test(human_data, llama_data)$p.value
+  }
+}
 # TODO: test
 
 ## RQ2 ##
