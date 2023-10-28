@@ -17,6 +17,7 @@ check_normality = function(path_all_joules, output_dir, path_separator = '/', al
         run_data = read.csv(path_file) 
         run_data = as.numeric(as.vector(run_data[1,])[-1]) #the other script writes it all weird so we need to transpose it weirdly
         
+        
         options("scipen"=100, "digits"=20)
         pval = shapiro.test(run_data)$p.value
         significant = pval < alpha
