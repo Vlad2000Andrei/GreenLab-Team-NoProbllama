@@ -12,24 +12,27 @@ check_normality = function(path_all_joules, output_dir, path_separator = '/', al
     benchmark_name = tail(strsplit(dir, path_separator)[[1]], 1)
     
     for (file in files) {
-      path_file = paste(c(dir, file), collapse=path_separator)
-      run_data = read.csv(path_file) 
-      run_data = as.numeric(as.vector(run_data[1,])[-1]) #the other script writes it all weird so we need to transpose it weirdly
-      
-      options("scipen"=100, "digits"=20)
-      pval = shapiro.test(run_data)$p.value
-      significant = pval < alpha
-      
-      normal = ""
-      if (significant) {
-        normal = "Not Normal"
+      if (endsWith(file, "csv")) {
+        path_file = paste(c(dir, file), collapse=path_separator)
+        run_data = read.csv(path_file) 
+        run_data = as.numeric(as.vector(run_data[1,])[-1]) #the other script writes it all weird so we need to transpose it weirdly
+        
+        
+        options("scipen"=100, "digits"=20)
+        pval = shapiro.test(run_data)$p.value
+        significant = pval < alpha
+        
+        normal = ""
+        if (significant) {
+          normal = "Not Normal"
+        }
+        else {
+          normal = "Unknown"
+        }
+        
+        new_row = data.frame(bench=file, pvalue=pval, signif=significant, normal=normal)
+        result = rbind(result, new_row)
       }
-      else {
-        normal = "Unknown"
-      }
-      
-      new_row = data.frame(bench=file, pvalue=pval, signif=significant, normal=normal)
-      result = rbind(result, new_row)
     }
   }
   
