@@ -42,7 +42,7 @@ plot_rq1 <- function(alg) {
 plot_cn <- plot_rq1("CN")
 plot_ts <- plot_rq1("TS")
 plot_sr <- plot_rq1("SR")
-
+plot_cn
 ################### RQ2 ####################
 group_and_reshape <- function(alg) {
   algo_df <- llama %>% filter(algorithm == alg)
@@ -61,14 +61,17 @@ plot_rq2 <- function(alg, name) {
     labs(
       x = "Normal Prompt Energy Consumption (mJ)",
       y = "Efficient Prompt Energy Consumption (mJ)",
-      title = paste("Llama Default Prompt vs Llama Energy Efficient Prompt for ", name)
+      title = paste("Llama Default Prompt vs Llama Energy Efficient Prompt for", name)
     ) +
     scale_color_manual(values = c("C++" = "red", "JavaScript" = "blue", "Python" = "green")) +
     theme_minimal() +
-    theme(plot.title = element_text(hjust = 0.5))
+    theme(plot.title = element_text(hjust = 0.5))+
+    geom_abline(intercept = 0, slope = 1, color = "black", linetype = "dashed")
 }
 
-plot_rq2(ts, "TS")
+plot_rq2(cn, "CN")
+
+
 
 ################### RQ3 ####################
 plot_rq3 <- function(df, alg) {
