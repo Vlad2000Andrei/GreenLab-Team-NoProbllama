@@ -3,3 +3,6 @@ answers/*
 models/
 __pycache__
 .DS_Store
+R Data Analysis/Data Files/*
+normality_shapiro.csv
+.Rproj.user

@@ -1,0 +1,10 @@
+"","benchmark","lang","pvalue"
+"1","two sum","Python",0.166286759511871
+"2","two sum","C++",0.616490822026832
+"3","two sum","JavaScript",0.802577592702019
+"4","string replacement","Python",0.000000000000127844600396454
+"5","string replacement","C++",0.34192550298987
+"6","string replacement","JavaScript",0.781534701421746
+"7","closest numbers","Python",0.310727160637065
+"8","closest numbers","C++",0.336508089814414
+"9","closest numbers","JavaScript",0.513843576439677
