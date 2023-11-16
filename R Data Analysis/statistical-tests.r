@@ -2,6 +2,7 @@ source("load-run-joules.r")  # import the functions from load-run-joules.r
 source("check-normality.r") # get the normality check info
 
 library(rcompanion)  # if this fails, run:  install.packages("rcompanion")  in the console
+library(effsize)
 
 path_all_joules = 'C:/Users/berta/OneDrive/Documents/GreenLab-Team-NoProbllama/R Data Analysis/Data Files/Run Joules'
 output_dir      = 'C:/Users/berta/OneDrive/Documents/GreenLab-Team-NoProbllama/R Data Analysis/Data Files'
@@ -22,7 +23,8 @@ for (benchmark in benchmarks) {
     llama_data = get_bench_data(data, source="llama", efficient = "FALSE", language=language, algorithm=benchmark, only_data = TRUE)[[1]]
     
     rq1_testresult = wilcox.test(human_data, llama_data)$p.value
-    new_row = data.frame(benchmark = benchmark, lang = language, pvalue = rq1_testresult)
+    effect_size_1 = cliff.delta(human_data, llama_data)$estimate
+    new_row = data.frame(benchmark = benchmark, lang = language, pvalue = rq1_testresult, cliff = effect_size_1)
     rq1 = rbind(rq1, new_row)
   }
 }
@@ -52,7 +54,6 @@ for (bench in benchmarks) {
     llama_rq3_1_0 = get_bench_data(data, source="llama", efficient = "FALSE", temperature = "1.0", language=lang, algorithm=bench, only_data = TRUE)[[1]]
 
     rq3_testresult = kruskal.test(list(llama_rq3_0_6, llama_rq3_0_8, llama_rq3_1_0))$p.value
-    print(paste("Benchmark: ", bench, " Language: ", lang, "p-value", rq3_testresult))
     new_row = data.frame(benchmark = bench, lang = lang, pvalue = rq3_testresult)
     rq3 = rbind(rq3, new_row)
   }
